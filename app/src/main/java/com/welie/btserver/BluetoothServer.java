@@ -183,15 +183,11 @@ class BluetoothServer {
 
         this.peripheralManager = new BluetoothPeripheralManager(context, bluetoothManager, peripheralManagerCallback);
         this.peripheralManager.removeAllServices();
-
-        DeviceInformationService dis = new DeviceInformationService(peripheralManager);
-        CurrentTimeService cts = new CurrentTimeService(peripheralManager);
-        HeartRateService hrs = new HeartRateService(peripheralManager);
-        serviceImplementations.put(dis.getService(), dis);
-        serviceImplementations.put(cts.getService(), cts);
-        serviceImplementations.put(hrs.getService(), hrs);
+        
+        SDLService sdl = new SDLService(peripheralManager);
+        serviceImplementations.put(sdl.getService(), sdl);
 
         setupServices();
-        startAdvertising(hrs.getService().getUuid());
+        startAdvertising(sdl.getService().getUuid());
     }
 }
